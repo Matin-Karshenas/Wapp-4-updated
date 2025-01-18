@@ -8,7 +8,7 @@
 
 body, input, select, textarea {
     
-    font-family: "Doto" ,sans-serif;
+    
     text-shadow: 0 0 7px red, 0 0 7px red, 0 0 7px red, 0 0 7px red, 0 0 7px red, 0 0 7px red;
     font-weight: 300;
     font-size: 1rem;
@@ -21,11 +21,11 @@ body, input, select, textarea {
     0% {
         text-shadow: 0 0 7px red, 0 0 7px red, 0 0 7px red, 0 0 7px red, 0 0 7px red, 0 0 7px red; /* Start as red */
         color: red;
-        font-family: "Doto" ,sans-serif;
+        
     }
     100% {
         color: white;
-        text-shadow: 0 0 3px white, 0 0 3px white, 0 0 3px white, 0 0 3px white, 0 0 3px white, 0 0 3px white; /* End as white */
+        text-shadow: 0 0 1px white, 0 0 1px white, 0 0 1px white, 0 0 1px white, 0 0 1px white, 0 0 1px white; /* End as white */
         
     }
 }
