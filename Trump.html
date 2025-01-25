@@ -9,6 +9,63 @@
 		<link rel="stylesheet" href="assets/css/custom.css" />
 		<link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap" rel="stylesheet">
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+
+		<script>
+			
+				// Function to handle different actions
+				var Toldonce = false;
+				function handleAction(action) {
+				  
+				  if (action === "Logged") {
+					alert("Login was successful!");
+				  } else if (action === "Not Logged") {
+					alert("Password or Email was incorrect.");
+				  } else {
+					alert("Unknown action: " + action);
+				  }
+				}
+			
+				// Extract the 'actionw' query parameter from the URL
+				function getQueryParameter(name) {
+				  const urlParams = new URLSearchParams(window.location.search);
+				  return urlParams.get(name);
+				}
+			
+				// Run on page load
+				window.onload = function () {
+				  
+				  if(!Toldonce)
+				  {
+					// Add a slight delay before checking the query parameter
+					setTimeout(function() {
+						const action = getQueryParameter("actionw")
+							
+						console.log("Action parameter value: " + action); // Log the parameter value
+						if (action) {
+							handleAction(action); // Call the appropriate function based on the action
+						} else {
+							console.error("Action parameter is missing.");
+						}
+
+						Toldonce = true;
+					}, 100); // Delay for 100ms
+				  }
+				  
+				};
+
+				function removeQueryParamAndSubmit() {
+					
+					const url = new URL(window.location.href);
+					url.searchParams.delete('actionw');  // Remove the 'actionw' parameter
+					
+					// Update the URL without reloading the page
+					window.history.replaceState({}, '', url);
+		
+					// Submit the form
+					document.getElementById("myForm").submit();
+				}
+	</script>
 	</head>
 	<body class="is-preload">
 
@@ -77,23 +134,16 @@
 						<!-- Contact -->
 							<article id="contact">
 								<h2 class="major">Contact</h2>
-								<form method="post" action="#Login">
+								<form method="post" action="#Login" id = "myForm">
 									<div class="fields">
-										<div class="field half">
-											<label for="name">Name</label>
-											<input type="text" name="name" id="name" />
-										</div>
-										<div class="field half">
-											<label for="email">Email</label>
-											<input type="text" name="email" id="email" />
-										</div>
+										
 										<div class="field">
 											<label for="message">Message</label>
 											<textarea name="message" id="message" rows="4"></textarea>
 										</div>
 									</div>
 									<ul class="actions">
-										<li><input type="submit" value="Login" class="primary" /></li>
+										<li><input type="submit" value="Login" onclick="removeQueryParamAndSubmit(); return false;" class="primary" /></li>
 										<li><input type="reset" value="Reset" /></li>
 									</ul>
 								</form>
@@ -107,21 +157,18 @@
 
 							<article id="Login">
 								<h2 class="major">Login</h2>
-								<form method="post" action="#">
+								<form method="post" action="Login.php" id = "myForm">
 									<div class="fields">
-										<div class="field">
-											<label for="message">Name</label>
-											<textarea name="message" id="Name" rows="1"></textarea>
-										</div>
+									
 									
 										<div class="field">
 											<label for="message">Email</label>
-											<textarea name="message" id="email" rows="1"></textarea>
+											<textarea name="email" id="email" rows="1"></textarea>
 										</div>
 
 										<div class="field">
 											<label for="message">Password</label>
-											<textarea name="message" id="password" rows="1"></textarea>
+											<textarea name="password" id="password" rows="1"></textarea>
 										</div>
 
 										<script>
@@ -138,27 +185,83 @@
 
 										<script>
 											const passwordTextarea = document.getElementById('password');
-											passwordTextarea.addEventListener('input', function () {
-											  // Replace the input with asterisks (*)
-											  const currentText = this.value;
-											  this.dataset.realValue = currentText; // Store the real password
-											  this.value = '*'.repeat(currentText.length);
-											});
-										  
-											passwordTextarea.addEventListener('focus', function () {
-											  this.value = this.dataset.realValue || ''; // Restore the real password on focus
-											});
-										  
-											passwordTextarea.addEventListener('blur', function () {
-											  this.dataset.realValue = this.value; // Save the real password
-											  this.value = '*'.repeat(this.value.length); // Mask it again
-											});
+											
 										</script>
 										  
 									</div>
 									<ul class="actions">
 										<li><input type="submit" value="Login" class="primary" /></li>
-										<li><input type="reset" value="Reset" /></li>
+										
+										<style>
+											.LinkClass
+											{
+												border-bottom: none;
+											}
+
+											.button_class
+											{
+												font-size: 10px;
+											}
+										</style>
+										<li><a href="#SignUp" class="button">Need an account?</a></li>
+									</ul>
+								</form>
+								
+							</article>
+
+
+							<article id="SignUp">
+								<h2 class="major">SignUp</h2>
+								<form method="post" action="Sql_php.php">
+									<div class="fields">
+										<div class="field">
+											<label for="message">Name</label>
+											<textarea name="Name" id="Name" rows="1"></textarea>
+										</div>
+									
+										<div class="field">
+											<label for="message">Email</label>
+											<textarea name="email" id="email" rows="1"></textarea>
+										</div>
+
+										<div class="field">
+											<label for="message">Password</label>
+											<textarea name="password" id="password" rows="1"></textarea>
+										</div>
+
+										<script>
+											const emailTextareaS = document.getElementById('email');
+											emailTextareaS.addEventListener('input', function () {
+											  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+											  if (!emailPattern.test(this.value)) {
+												this.style.font = 'red';
+											  } else {
+												this.style.borderColor = 'green';
+											  }
+											});
+										</script>
+
+										<script>
+											const passwordTextareaS = document.getElementById('password');
+											
+										</script>
+										  
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Join" class="primary" /></li>
+										
+										<style>
+											.LinkClass
+											{
+												border-bottom: none;
+											}
+
+											.button_class
+											{
+												font-size: 10px;
+											}
+										</style>
+										<li><a href="#Login" class="button">Already hace an account?</a></li>
 									</ul>
 								</form>
 								
