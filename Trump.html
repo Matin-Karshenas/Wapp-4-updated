@@ -18,12 +18,36 @@
 				function handleAction(action) {
 				  
 				  if (action === "Logged") {
+					let button = document.getElementById("loginButton");
+					button.value = "Send message by "+ getQueryParameter("NAME");
+					addExtraButtons();	
 					alert("Login was successful!");
+					
 				  } else if (action === "Not Logged") {
 					alert("Password or Email was incorrect.");
 				  } else {
 					alert("Unknown action: " + action);
 				  }
+				}
+
+				function addExtraButtons() {
+					let ul = document.getElementById("actionsList"); // Get the <ul>
+		
+					// Create <li> for New Submit button
+					let newSubmitLi = document.createElement("li");
+					let newSubmitButton = document.createElement("input");
+					newSubmitButton.type = "submit";
+					newSubmitButton.value = "SIGN OUT";
+					
+					newSubmitButton.onclick = function() {
+						removeQueryParamAndSubmit1();
+					};
+					newSubmitLi.appendChild(newSubmitButton);
+		
+		
+					// Append new buttons without removing existing ones
+					ul.appendChild(newSubmitLi);
+				
 				}
 			
 				// Extract the 'actionw' query parameter from the URL
@@ -64,6 +88,17 @@
 		
 					// Submit the form
 					document.getElementById("myForm").submit();
+				}
+
+				function removeQueryParamAndSubmit1() {
+					
+					const url = new URL(window.location.href);
+					url.searchParams.delete('actionw');  // Remove the 'actionw' parameter
+					
+					// Update the URL without reloading the page
+					window.history.replaceState({}, '', url);
+		
+					
 				}
 	</script>
 	</head>
@@ -142,8 +177,8 @@
 											<textarea name="message" id="message" rows="4"></textarea>
 										</div>
 									</div>
-									<ul class="actions">
-										<li><input type="submit" value="Login" onclick="removeQueryParamAndSubmit(); return false;" class="primary" /></li>
+									<ul class="actions" id = "actionsList">
+										<li><input type="submit" id = "loginButton" value="Login" onclick="removeQueryParamAndSubmit(); return false;" class="primary" /></li>
 										<li><input type="reset" value="Reset" /></li>
 									</ul>
 								</form>
