@@ -57,7 +57,7 @@
     // After 3 seconds, stop the loading animation and redirect to another website
     setTimeout(function() {
         clearInterval(interval); // Stop updating dots
-        window.location.href = "Trump.html"; // Change this to the URL you want to redirect to
+        window.location.href = "Trump.php"; // Change this to the URL you want to redirect to
     }, 3000);
   </script>
 </body>
