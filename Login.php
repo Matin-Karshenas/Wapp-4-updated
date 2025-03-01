@@ -34,14 +34,14 @@
         $Action = "Logged";
         $Row = mysqli_fetch_assoc($result);
         $NameOf_Client = $Row["Name"];
-        header("Location: Trump.html?cameFromLogin=true&actionw=".$Action."&NAME=".$NameOf_Client."#contact");
+        header("Location: Trump.php?cameFromLogin=true&actionw=".$Action."&NAME=".$NameOf_Client."#contact");
         exit();
     }
     else
     {
         echo("You are not logged");
         $Action = "Not Logged";
-        header("Location: Trump.html?cameFromLogin=true&actionw=".$Action."#contact");
+        header("Location: Trump.php?cameFromLogin=true&actionw=".$Action."#contact");
         exit();
     }
 

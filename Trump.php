@@ -36,6 +36,31 @@ $conn->close();
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
 
+		<style>
+			input[type="file"]
+			{
+				display: none;
+			}
+
+			.custom_file_lable
+			{
+				display: inline-block;
+				padding: 10px 20px;
+				margin-left: 20px;
+				background-color: none;
+				border: 1px solid white;
+				border-radius: 5px;
+				cursor: pointer;
+				transition: 0.2s;
+			}
+
+			.custom_file_lable:hover
+			{
+				background-color: gray;
+				
+			}
+		</style>
+
 		<script>
 			
 				// Function to handle different actions
@@ -45,6 +70,12 @@ $conn->close();
 				  if (action === "Logged") {
 					let button = document.getElementById("loginButton");
 					button.value = "Send message by "+ getQueryParameter("NAME");
+					let button2 = document.getElementById("import_Button");
+					button2.value = "Add News by "+ getQueryParameter("NAME");
+
+					let button3 = document.getElementById("update_Button");
+					button3.value = "Update News by "+ getQueryParameter("NAME");
+					
 					addExtraButtons();	
 					alert("Login was successful!");
 					
@@ -115,6 +146,22 @@ $conn->close();
 					document.getElementById("myForm").submit();
 				}
 
+				function Import() {
+					
+					const url = new URL(window.location.href);
+					
+					
+					document.getElementById("import_form").submit();
+				}
+
+				function update() {
+					
+					const url = new URL(window.location.href);
+					
+					
+					document.getElementById("update_form").submit();
+				}
+
 				function removeQueryParamAndSubmit1() {
 					
 					const url = new URL(window.location.href);
@@ -148,9 +195,10 @@ $conn->close();
 						<nav>
 							<ul>
 								<li><a href="#intro">Education</a></li>
+								<li><a href="#new">NEWS</a></li>
 								<li><a href="#work">Work</a></li>
-								<li><a href="#about">Presidancy</a></li>
 								<li><a href="#life">Life</a></li>
+								<li><a href="#about">Presidancy</a></li>
 								<li><a href="#contact">Contact</a></li>
 								<!--<li><a href="#elements">Elements</a></li>-->
 							</ul>
@@ -190,6 +238,146 @@ $conn->close();
 								<span class="image main"><img src="images/Pic4.jpg" alt="" /></span>
 								<p> <?php echo($content4) ?> </p>
 							</article>
+
+							<article id="edit">
+								<h2 class="major">Edit</h2>
+								<?php
+            						$con = mysqli_connect("localhost","root","","website_database");
+            						$data = mysqli_query($con, "SELECT * FROM new_data");
+            						mysqli_close($con);
+
+            						$row = mysqli_fetch_array($data);
+            						$row_count = mysqli_fetch_lengths($data);
+
+
+									$current_url = strtok($_SERVER["REQUEST_URI"], '?');
+
+
+            						while($row)
+            						{
+										$query = $_GET;
+										$query['row'] = $row['row']; 
+										$new_query_string = http_build_query($query);
+                					?>
+
+										<span class="image main"><img src="<?php echo($row["image"])  ?>" alt="" /></span>
+
+                        				<p><?php echo($row["text"]) ?></p>
+										<button ><a href="<?= $current_url . '?' . $new_query_string ?>#update">UPDATE</a></button>
+										<button><a href="remove.php?row=<?php echo($row['row'])?>">REMOVE</a></button>
+                    					
+                					<?php
+
+                					$row = mysqli_fetch_array($data);
+                
+            						}
+
+            
+
+        						?>	
+
+
+								<p> <?php echo("No More content") ?> </p>
+							</article>
+
+							<article id="new">
+
+								<?php
+									if(isset($_GET['actionw']))
+									{
+										$state = $_GET['actionw'];
+										if($state == 'Logged')
+										{
+											?>
+											<button ><a href="#Import">ADD</a></button>
+											<button><a href="#edit">EDIT</a></button>
+											<?php
+										}
+
+									}
+
+								?>
+								<br>
+								<br>								
+								<h2 class="major">Top News</h2>
+								<?php
+            						$con = mysqli_connect("localhost","root","","website_database");
+            						$data = mysqli_query($con, "SELECT * FROM new_data");
+            						mysqli_close($con);
+
+            						$row = mysqli_fetch_array($data);
+            						$row_count = mysqli_fetch_lengths($data);
+
+
+            
+
+
+            						while($row)
+            						{
+                					?>
+
+										<span class="image main"><img src="<?php echo($row["image"])  ?>" alt="" /></span>
+
+                        				<p><?php echo($row["text"]) ?></p>
+                    					
+                					<?php
+
+                					$row = mysqli_fetch_array($data);
+                
+            						}
+
+            
+
+        						?>	
+
+
+								<p> <?php echo("No More content") ?> </p>
+							</article>
+
+							<article id="Import">
+								<h2 class="major">ADD CONTENT</h2>
+								<br>
+								<br>
+								<form method="POST" action="import.php" id = "import_form" enctype="multipart/form-data">
+									<div class="fields">
+
+										<label for = "IMAGE" class = "custom_file_lable">Choose file</label>
+										<input type="file" class = "IMAGE" id = "IMAGE" name = "IMAGE" placeholder="IMAGE">
+										<div class="field">
+											<label for="message">Content</label>
+											<textarea name="message" id="message" rows="4"></textarea>
+										</div>
+									</div>
+									<ul class="actions" id = "actionsList">
+										<li><input type="submit" id = "import_Button" value="IMPORT" onclick="Import(); return false;" class="primary" /></li>
+										<li><input type="reset" value="Reset" /></li>
+									</ul>
+								</form>
+							</article>
+
+
+							<article id="update">
+								<h2 class="major">Update content</h2>
+								<br>
+								<br>
+								<form method="POST" action="update.php?row=<?php echo($_GET["row"])?>" id = "update_form" enctype="multipart/form-data">
+									<div class="fields">
+
+										<label for = "IMAGE1" class = "custom_file_lable">Choose file</label>
+										<input type="file" class = "IMAGE1" id = "IMAGE1" name = "IMAGE1" placeholder="IMAGE">
+										<div class="field">
+											<label for="message1">Content</label>
+											<textarea name="message1" id="message1" rows="4"></textarea>
+										</div>
+									</div>
+									<ul class="actions" id = "actionsList">
+										<li><input type="submit" id = "update_Button" value="UPDATE" onclick="update(); return false;" class="primary" /></li>
+										<li><input type="reset" value="Reset" /></li>
+									</ul>
+								</form>
+							</article>
+
+							
 
 						<!-- Contact -->
 							<article id="contact">

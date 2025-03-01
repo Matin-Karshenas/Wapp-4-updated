@@ -6,6 +6,12 @@
     animation: imageanim 10s infinite;
 }
 
+
+
+input#file_import {
+    display: none;
+}
+
 body, input, select, textarea {
     
     
