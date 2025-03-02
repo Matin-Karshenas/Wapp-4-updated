@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2025 at 05:53 PM
+-- Generation Time: Mar 02, 2025 at 05:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,6 +45,25 @@ INSERT INTO `data_table` (`ROW`, `DATA`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `new_data`
+--
+
+CREATE TABLE `new_data` (
+  `row` int(11) NOT NULL,
+  `image` text NOT NULL,
+  `text` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `new_data`
+--
+
+INSERT INTO `new_data` (`row`, `image`, `text`) VALUES
+(22, 'images/pic3.jpg', 'hello');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `website`
 --
 
@@ -72,7 +91,11 @@ INSERT INTO `website` (`Name`, `Email`, `Password`) VALUES
 ('', '', ''),
 ('MyNword', 'MyNword@gmail.com', 'MyNwordPassword'),
 ('MR_FANSERVICE', 'FANSERVICE@GMAIL.COM', 'FANSERVICE'),
-('SOS', 'SOS@GMAIL.COM', 'SOSPASSWORD');
+('SOS', 'SOS@GMAIL.COM', 'SOSPASSWORD'),
+('Johny_sins', 'Johny_sins@gmail.com', 'Johny_sins'),
+('Johny_sins', 'Johny_sins@gmail.com', 'Johny_sins'),
+('Johny_sins', 'Johny_sins@gmail.com', 'Johny_sins'),
+('Johny_sins', 'Johny_sins@gmail.com', 'Johny_sins');
 
 -- --------------------------------------------------------
 
@@ -103,6 +126,12 @@ ALTER TABLE `data_table`
   ADD PRIMARY KEY (`ROW`);
 
 --
+-- Indexes for table `new_data`
+--
+ALTER TABLE `new_data`
+  ADD PRIMARY KEY (`row`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -111,6 +140,12 @@ ALTER TABLE `data_table`
 --
 ALTER TABLE `data_table`
   MODIFY `ROW` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `new_data`
+--
+ALTER TABLE `new_data`
+  MODIFY `row` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
