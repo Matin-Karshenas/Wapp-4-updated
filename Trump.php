@@ -293,7 +293,18 @@ $conn->close();
 											<button><a href="#edit">EDIT</a></button>
 											<?php
 										}
-
+										
+										if($state != 'Logged')
+										{
+											?>
+											<button ><a href="#Login">Login to edit</a></button>
+											<?php
+										}
+									}else
+									{
+										?>
+										<button ><a href="#Login">Login to edit</a></button>
+										<?php
 									}
 
 								?>
