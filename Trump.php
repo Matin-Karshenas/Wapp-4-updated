@@ -4,7 +4,11 @@
 
 $conn = new mysqli("localhost", "root", "", "website_database");
 
+session_start();
 
+$Action_var = $_SESSION["Action"] ?? null;
+$Name_var = $_SESSION["Name"] ?? null;
+$Admin_var = $_SESSION["Admin"] ?? null;
 
 
 $sql = "SELECT `DATA` FROM `data_table` WHERE `ROW` = 1";
@@ -23,6 +27,9 @@ $sql = "SELECT `DATA` FROM `data_table` WHERE `ROW` = 4";
 $result = $conn->query($sql);
 $content4 = ($result->num_rows > 0) ? $result->fetch_assoc()['DATA'] : "No content found.";
 $conn->close();
+
+
+
 ?>
 
 <html>
@@ -65,13 +72,16 @@ $conn->close();
 			
 				// Function to handle different actions
 				var Toldonce = false;
+				const action_var = "<?php echo $_SESSION['Action']; ?>";
+    			const name = "<?php echo $_SESSION['Name']; ?>";
+    			const admin = "<?php echo $_SESSION['Admin']; ?>";
 				function handleAction(action) {
 				  
-				  if (action === "Logged") {
+				  if (action_var === "Logged") {
 					let button = document.getElementById("loginButton");
-					button.value = "Send message by "+ getQueryParameter("NAME");
+					button.value = "Send message by "+ name;
 					let button2 = document.getElementById("import_Button");
-					button2.value = "Add News by "+ getQueryParameter("NAME");
+					button2.value = "Add News by "+ name;
 
 					let button3 = document.getElementById("update_Button");
 					button3.value = "Update News by "+ getQueryParameter("NAME");
@@ -197,9 +207,33 @@ $conn->close();
 								<li><a href="#intro">Education</a></li>
 								<li><a href="#new">NEWS</a></li>
 								<li><a href="#work">Work</a></li>
+								<?php
+
+									if(isset($Action_var))
+									{
+										if($Action_var == "Logged")
+										{
+											?>
+											<li><a href="Logout.php">Logout</a></li>
+											<?php
+										}else{
+											?>
+											<li><a href="#Login">Login</a></li>
+											<?php
+										}
+									}else
+									{
+										?>
+										<li><a href="#Login">Login</a></li>
+										<?php
+									}
+									
+									
+								?>
 								<li><a href="#life">Life</a></li>
 								<li><a href="#about">Presidancy</a></li>
 								<li><a href="#contact">Contact</a></li>
+								
 								<!--<li><a href="#elements">Elements</a></li>-->
 							</ul>
 						</nav>
@@ -283,28 +317,17 @@ $conn->close();
 							<article id="new">
 
 								<?php
-									if(isset($_GET['actionw']))
+									if(isset($Action_var))
 									{
-										$state = $_GET['actionw'];
-										if($state == 'Logged')
+										$state = $Action_var;
+										if($state == 'Logged' && $Admin_var == 1)
 										{
 											?>
 											<button ><a href="#Import">ADD</a></button>
 											<button><a href="#edit">EDIT</a></button>
 											<?php
 										}
-										
-										if($state != 'Logged')
-										{
-											?>
-											<button ><a href="#Login">Login to edit</a></button>
-											<?php
-										}
-									}else
-									{
-										?>
-										<button ><a href="#Login">Login to edit</a></button>
-										<?php
+			
 									}
 
 								?>

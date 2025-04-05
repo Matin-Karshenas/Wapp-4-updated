@@ -28,13 +28,20 @@
 
     if($data)
     {
-        $query = "SELECT `Name` FROM `website` WHERE `Email` = '$Email'";
+        $query = "SELECT `Name`,`Admin` FROM `website` WHERE `Email` = '$Email'";
         $result = mysqli_query($data_sa, $query);
         echo("You are logged");
         $Action = "Logged";
         $Row = mysqli_fetch_assoc($result);
         $NameOf_Client = $Row["Name"];
-        header("Location: Trump.php?cameFromLogin=true&actionw=".$Action."&NAME=".$NameOf_Client."#contact");
+        $Admin_statue = $Row["Admin"];
+
+        session_start();
+
+        $_SESSION["Action"] = $Action;
+        $_SESSION["Name"] = $NameOf_Client;
+        $_SESSION["Admin"] = $Admin_statue;
+        header("Location: Trump.php?cameFromLogin=true&actionw=".$Action."&NAME=".$NameOf_Client."&Admin=".$Admin_statue."#contact");
         exit();
     }
     else
