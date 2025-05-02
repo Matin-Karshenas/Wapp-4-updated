@@ -144,17 +144,7 @@ $conn->close();
 				  
 				};
 
-				function removeQueryParamAndSubmit() {
-					
-					const url = new URL(window.location.href);
-					url.searchParams.delete('actionw');  // Remove the 'actionw' parameter
-					
-					// Update the URL without reloading the page
-					window.history.replaceState({}, '', url);
-		
-					// Submit the form
-					document.getElementById("myForm").submit();
-				}
+
 
 				function Import() {
 					
@@ -271,6 +261,31 @@ $conn->close();
 								<h2 class="major">life</h2>
 								<span class="image main"><img src="images/Pic4.jpg" alt="" /></span>
 								<p> <?php echo($content4) ?> </p>
+							</article>
+
+							<article id="Reviews">
+								<h2 class="major">Reviews</h2>
+								<?php
+							        $con1 = mysqli_connect("localhost","root","","website_database");
+									$data1 = mysqli_query($con1, "SELECT * FROM reviews");
+									mysqli_close($con1);
+							
+									$row1 = mysqli_fetch_array($data1);
+								    $row_count1 = mysqli_fetch_lengths($data1);		
+									while($row1)
+            						{
+										$query = $_GET;
+                					?>
+										<p>USER : [<?php echo($row1['Name']);?>]<br>COMMENT : [<?php echo($row1['Text']);?>]</p>
+										
+                    					
+                					<?php
+
+                					$row1 = mysqli_fetch_array($data1);
+                
+            						}
+								?>
+								
 							</article>
 
 							<article id="edit">
@@ -416,7 +431,18 @@ $conn->close();
 						<!-- Contact -->
 							<article id="contact">
 								<h2 class="major">Contact</h2>
-								<form method="post" action="#Login" id = "myForm">
+								<?php
+
+									$data11 = "";
+									if($Action_var)
+									{
+										$data11 = "Review_add.php?Name=". $Name_var;
+									}else
+									{
+										$data11 = "#Login";
+									}
+								?>
+								<form method="post" action="<?php echo($data11);?>" id = "myForm">
 									<div class="fields">
 										
 										<div class="field">
@@ -426,6 +452,17 @@ $conn->close();
 									</div>
 									<ul class="actions" id = "actionsList">
 										<li><input type="submit" id = "loginButton" value="Login" onclick="removeQueryParamAndSubmit(); return false;" class="primary" /></li>
+										<?php
+											if(isset($Admin_var))
+											{
+												if($Admin_var== true)
+												{
+													?>
+													<li><a href="#Reviews" class="button">REVIEWS</a></li>
+													<?php
+												}
+											} 
+										?>
 										<li><input type="reset" value="Reset" /></li>
 									</ul>
 								</form>

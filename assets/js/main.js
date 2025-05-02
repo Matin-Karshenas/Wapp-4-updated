@@ -69,6 +69,8 @@
 		locked = false; // Lock to prevent overlapping transitions.
 
 	// Define a method to show an article by its id.
+	
+
 	$main._show = function(id, initial) {
 
 		// Filter for the article with the given id.

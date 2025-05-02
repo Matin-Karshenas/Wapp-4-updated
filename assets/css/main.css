@@ -997,7 +997,7 @@ input[type="submit"].icon:before,
 input[type="reset"].icon:before,
 input[type="button"].icon:before,
 button.icon:before,
-.button.icon:before {
+.button.:before {
 	margin-right: 0.5em;
 }
 input[type="submit"].fit,
@@ -1240,7 +1240,7 @@ body.is-preload #bg:before {
 	transition: max-height 0.75s ease, padding 0.75s ease, opacity 0.325s ease-in-out;
 	-moz-transition-delay: 0.25s;
 	-webkit-transition-delay: 0.25s;
-	-ms-transition-delay: 0.25s;
+	-ms-transition-delay: 1.0s;
 	transition-delay: 0.25s;
 	padding: 3rem 2rem;
 	max-height: 40rem;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2025 at 06:32 PM
+-- Generation Time: May 02, 2025 at 11:52 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -60,6 +60,30 @@ CREATE TABLE `new_data` (
 
 INSERT INTO `new_data` (`row`, `image`, `text`) VALUES
 (24, 'images/pic3.jpg', 'in a smart reason');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` int(11) NOT NULL,
+  `Name` text NOT NULL,
+  `Text` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `Name`, `Text`) VALUES
+(1, 'Alex', 'wow it is a great ass'),
+(2, 'Admin', 'hallo'),
+(3, 'Admin', ''),
+(4, 'Admin', 'great ass'),
+(5, 'Admin', ''),
+(6, 'Admin', '');
 
 -- --------------------------------------------------------
 
@@ -135,6 +159,12 @@ ALTER TABLE `new_data`
   ADD PRIMARY KEY (`row`);
 
 --
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -149,6 +179,12 @@ ALTER TABLE `data_table`
 --
 ALTER TABLE `new_data`
   MODIFY `row` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
