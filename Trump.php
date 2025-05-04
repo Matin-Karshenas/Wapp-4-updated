@@ -1,8 +1,9 @@
 <!DOCTYPE HTML>
 
 <?php
-
-$conn = new mysqli("localhost", "root", "", "website_database");
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+$conn = new mysqli("localhost","root", "", "website_database");
 
 session_start();
 

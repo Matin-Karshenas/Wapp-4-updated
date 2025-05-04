@@ -2,16 +2,32 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,600italic,300,600");
 
-/*
-	Dimension by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+/* 
+   Summary of Key Complex Areas & Transitions :
+   ------------------------------------------
+   1. Preload State (Lines 19, 118-128): Disables all animations initially for smooth loading. (Rule appears twice).
+   2. Background Effects (#bg, Lines 883-950): Multi-layered background with scaling, blur, and overlay fade effects tied to page states.
+   3. Header/Footer Transitions (#header, #footer, Lines 998-1187, 1295-1326): Fade, scale, and blur animations when articles are shown/hidden. Special reveal animation for header content on load.
+   4. Main Article Transitions (#main article, Lines 1219-1241): Slide-up and fade-in animation for articles when they become active.
+   5. Custom Form Elements (Checkboxes/Radios, Selects, Lines 399-472): Hiding native elements and using pseudo-elements/backgrounds for custom looks.
+   6. Flexbox Field Layout (form > .fields, Lines 308-329): Uses negative margins and padding for creating gutters in a flexible grid.
 */
 
-/* 
-   Reset/Normalize: Remove default margins, paddings, borders, etc.
-   for a wide range of HTML elements.
-*/
+
+
+
+
+body.is-preload *, body.is-preload *:before, body.is-preload *:after {
+	-moz-animation: none !important;
+	-webkit-animation: none !important;
+	-ms-animation: none !important;
+	animation: none !important;
+	-moz-transition: none !important;
+	-webkit-transition: none !important;
+	-ms-transition: none !important;
+	transition: none !important;
+}
+
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
