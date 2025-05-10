@@ -274,17 +274,22 @@ $conn->close();
 									$row1 = mysqli_fetch_array($data1);
 								    $row_count1 = mysqli_fetch_lengths($data1);		
 									while($row1)
-            						{
+									{
 										$query = $_GET;
-                					?>
-										<p>USER : [<?php echo($row1['Name']);?>]<br>COMMENT : [<?php echo($row1['Text']);?>]</p>
-										
-                    					
-                					<?php
-
-                					$row1 = mysqli_fetch_array($data1);
-                
-            						}
+									?>
+										<div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; position: relative;">
+											<p>
+												USER : [<?php echo($row1['Name']);?>]<br>
+												COMMENT : [<?php echo($row1['Text']);?>]
+											</p>
+									
+											<?php if(isset($Admin_var) && $Admin_var == true): ?>
+												<a href="Review_remove.php?id=<?php echo($row1["id"])?>" class="button" style="position: absolute; bottom: 10px; right: 10px;">REMOVE</a>
+											<?php endif; ?>
+										</div>
+									<?php
+										$row1 = mysqli_fetch_array($data1);
+									}
 								?>
 								
 							</article>
@@ -454,15 +459,10 @@ $conn->close();
 									<ul class="actions" id = "actionsList">
 										<li><input type="submit" id = "loginButton" value="Login" onclick="removeQueryParamAndSubmit(); return false;" class="primary" /></li>
 										<?php
-											if(isset($Admin_var))
-											{
-												if($Admin_var== true)
-												{
-													?>
-													<li><a href="#Reviews" class="button">REVIEWS</a></li>
-													<?php
-												}
-											} 
+											?>
+											<li><a href="#Reviews" class="button">REVIEWS</a></li>
+											<?php
+
 										?>
 										<li><input type="reset" value="Reset" /></li>
 									</ul>
